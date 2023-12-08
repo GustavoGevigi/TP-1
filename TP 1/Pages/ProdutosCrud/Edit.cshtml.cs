@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using TP_1.Data;
 using TP_1.Models;
 
-namespace TP_1.Pages.Brands
+namespace TP_1.Pages.ProdutosCrud
 {
     public class EditModel : PageModel
     {
@@ -21,21 +21,21 @@ namespace TP_1.Pages.Brands
         }
 
         [BindProperty]
-        public Branding Branding { get; set; } = default!;
+        public ProdutosData ProdutosData { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Branding == null)
+            if (id == null || _context.ProdutosData == null)
             {
                 return NotFound();
             }
 
-            var branding =  await _context.Branding.FirstOrDefaultAsync(m => m.BrandingId == id);
-            if (branding == null)
+            var produtosdata =  await _context.ProdutosData.FirstOrDefaultAsync(m => m.Id == id);
+            if (produtosdata == null)
             {
                 return NotFound();
             }
-            Branding = branding;
+            ProdutosData = produtosdata;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace TP_1.Pages.Brands
                 return Page();
             }
 
-            _context.Attach(Branding).State = EntityState.Modified;
+            _context.Attach(ProdutosData).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace TP_1.Pages.Brands
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BrandingExists(Branding.BrandingId))
+                if (!ProdutosDataExists(ProdutosData.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace TP_1.Pages.Brands
             return RedirectToPage("./Index");
         }
 
-        private bool BrandingExists(int id)
+        private bool ProdutosDataExists(int id)
         {
-          return (_context.Branding?.Any(e => e.BrandingId == id)).GetValueOrDefault();
+          return (_context.ProdutosData?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

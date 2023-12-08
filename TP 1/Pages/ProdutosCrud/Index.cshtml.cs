@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TP_1.Data;
 using TP_1.Models;
 
-namespace TP_1.Pages.Products
+namespace TP_1.Pages.ProdutosCrud
 {
     public class IndexModel : PageModel
     {
@@ -19,13 +19,13 @@ namespace TP_1.Pages.Products
             _context = context;
         }
 
-        public IList<Produtos> Produtos { get;set; } = default!;
+        public IList<ProdutosData> ProdutosData { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Produtos != null)
+            if (_context.ProdutosData != null)
             {
-                Produtos = await _context.Produtos.ToListAsync();
+                ProdutosData = await _context.ProdutosData.ToListAsync();
             }
         }
     }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TP_1.Data;
 using TP_1.Models;
 
-namespace TP_1.Pages.Products
+namespace TP_1.Pages.ProdutosCrud
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace TP_1.Pages.Products
         }
 
         [BindProperty]
-      public Produtos Produtos { get; set; } = default!;
+      public ProdutosData ProdutosData { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Produtos == null)
+            if (id == null || _context.ProdutosData == null)
             {
                 return NotFound();
             }
 
-            var produtos = await _context.Produtos.FirstOrDefaultAsync(m => m.Id == id);
+            var produtosdata = await _context.ProdutosData.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (produtos == null)
+            if (produtosdata == null)
             {
                 return NotFound();
             }
             else 
             {
-                Produtos = produtos;
+                ProdutosData = produtosdata;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Produtos == null)
+            if (id == null || _context.ProdutosData == null)
             {
                 return NotFound();
             }
-            var produtos = await _context.Produtos.FindAsync(id);
+            var produtosdata = await _context.ProdutosData.FindAsync(id);
 
-            if (produtos != null)
+            if (produtosdata != null)
             {
-                Produtos = produtos;
-                _context.Produtos.Remove(Produtos);
+                ProdutosData = produtosdata;
+                _context.ProdutosData.Remove(ProdutosData);
                 await _context.SaveChangesAsync();
             }
 

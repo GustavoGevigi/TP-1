@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using TP_1.Data;
 using TP_1.Models;
 
@@ -17,11 +15,11 @@ namespace TP_1.Pages
             _context = context;
         }
 
-        public IList<Produtos> Produtos { get; set; } = new List<Produtos>();
+        public IList<ProdutosData> ProdutosData { get; set; }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            Produtos = await _context.Produtos.ToListAsync();
+            ProdutosData = _context.ProdutosData.ToList();
         }
     }
 }

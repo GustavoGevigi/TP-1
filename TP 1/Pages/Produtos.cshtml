@@ -1,5 +1,6 @@
 ﻿@page
 @model TP_1.Pages.ProdutosModel
+
 @{
     ViewData["Title"] = "Produtos";
 }
@@ -7,7 +8,7 @@
 <h1>Produtos</h1>
 
 <div class="row">
-    @foreach (var produto in Model.Produtos)
+    @foreach (var produto in Model.ProdutosData)
     {
         <div class="col-md-4 mb-4">
             <div class="card">

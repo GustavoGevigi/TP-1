@@ -22,24 +22,7 @@ namespace TP_1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("TP_1.Models.Branding", b =>
-                {
-                    b.Property<int>("BrandingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BrandingId"), 1L, 1);
-
-                    b.Property<string>("BrandingNome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("BrandingId");
-
-                    b.ToTable("Branding");
-                });
-
-            modelBuilder.Entity("TP_1.Models.ProductsData", b =>
+            modelBuilder.Entity("TP_1.Models.ProdutosData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,12 +44,6 @@ namespace TP_1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MarcaId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MarcasBrandingId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -75,79 +52,9 @@ namespace TP_1.Migrations
                     b.Property<double>("Preco")
                         .HasColumnType("float");
 
-                    b.Property<string>("SlugNome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("MarcasBrandingId");
-
-                    b.ToTable("ProductsData");
-                });
-
-            modelBuilder.Entity("TP_1.Models.Produtos", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("DataLancamento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Disponivel")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ImagemPath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MarcaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<double>("Preco")
-                        .HasColumnType("float");
-
-                    b.Property<string>("SlugNome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MarcaId");
-
-                    b.ToTable("Produtos");
-                });
-
-            modelBuilder.Entity("TP_1.Models.ProductsData", b =>
-                {
-                    b.HasOne("TP_1.Models.Branding", "Marcas")
-                        .WithMany()
-                        .HasForeignKey("MarcasBrandingId");
-
-                    b.Navigation("Marcas");
-                });
-
-            modelBuilder.Entity("TP_1.Models.Produtos", b =>
-                {
-                    b.HasOne("TP_1.Models.Branding", "Marcas")
-                        .WithMany()
-                        .HasForeignKey("MarcaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Marcas");
+                    b.ToTable("ProdutosData");
                 });
 #pragma warning restore 612, 618
         }

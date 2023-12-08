@@ -12,8 +12,8 @@ using TP_1.Data;
 namespace TP_1.Migrations
 {
     [DbContext(typeof(TP_1Context))]
-    [Migration("20231208004935_AdicionaSlug")]
-    partial class AdicionaSlug
+    [Migration("20231208175956_AddProdutos")]
+    partial class AddProdutos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace TP_1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("TP_1.Models.Produtos", b =>
+            modelBuilder.Entity("TP_1.Models.ProdutosData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,13 +54,9 @@ namespace TP_1.Migrations
                     b.Property<double>("Preco")
                         .HasColumnType("float");
 
-                    b.Property<string>("SlugNome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Produtos");
+                    b.ToTable("ProdutosData");
                 });
 #pragma warning restore 612, 618
         }

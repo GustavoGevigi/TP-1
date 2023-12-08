@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TP_1.Data;
 using TP_1.Models;
 
-namespace TP_1.Pages.Brands
+namespace TP_1.Pages.ProdutosCrud
 {
     public class DetailsModel : PageModel
     {
@@ -19,23 +19,23 @@ namespace TP_1.Pages.Brands
             _context = context;
         }
 
-      public Branding Branding { get; set; } = default!; 
+      public ProdutosData ProdutosData { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Branding == null)
+            if (id == null || _context.ProdutosData == null)
             {
                 return NotFound();
             }
 
-            var branding = await _context.Branding.FirstOrDefaultAsync(m => m.BrandingId == id);
-            if (branding == null)
+            var produtosdata = await _context.ProdutosData.FirstOrDefaultAsync(m => m.Id == id);
+            if (produtosdata == null)
             {
                 return NotFound();
             }
             else 
             {
-                Branding = branding;
+                ProdutosData = produtosdata;
             }
             return Page();
         }
