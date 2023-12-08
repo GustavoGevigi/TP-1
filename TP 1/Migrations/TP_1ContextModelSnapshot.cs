@@ -22,23 +22,6 @@ namespace TP_1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("TP_1.Models.MarcasData", b =>
-                {
-                    b.Property<int>("MarcasDataId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarcasDataId"), 1L, 1);
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MarcasDataId");
-
-                    b.ToTable("MarcasData");
-                });
-
             modelBuilder.Entity("TP_1.Models.ProdutosData", b =>
                 {
                     b.Property<int>("Id")
