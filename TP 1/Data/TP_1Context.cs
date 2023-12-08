@@ -14,5 +14,6 @@ namespace TP_1.Data
         {
         }
         public DbSet<TP_1.Models.ProdutosData>? ProdutosData { get; set; }
+        public DbSet<TP_1.Models.MarcasData>? MarcasData { get; set; }
     }
 }

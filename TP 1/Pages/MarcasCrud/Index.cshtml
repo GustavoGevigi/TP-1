@@ -1,0 +1,36 @@
+﻿@page
+@model TP_1.Pages.MarcasCrud.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MarcasData[0].Nome)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.MarcasData) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.MarcasDataId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.MarcasDataId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.MarcasDataId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
