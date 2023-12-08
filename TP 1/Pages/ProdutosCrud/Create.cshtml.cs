@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TP_1.Data;
 using TP_1.Models;
 
@@ -19,25 +20,32 @@ namespace TP_1.Pages.ProdutosCrud
             _context = context;
         }
 
-        public IActionResult OnGet()
+        [BindProperty]
+        public ProdutosData Produto { get; set; }
+
+        public List<MarcasData> Marcas { get; set; }
+
+        public void OnGet()
         {
-            return Page();
+            // Carregar lista de marcas
+            Marcas = _context.MarcasData.ToList();
         }
 
-        [BindProperty]
-        public ProdutosData ProdutosData { get; set; } = default!;
-        
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
-          if (!ModelState.IsValid || _context.ProdutosData == null || ProdutosData == null)
+            if (!ModelState.IsValid)
             {
+                // Se o modelo não for válido, retorne à página com erros
+                Marcas = _context.MarcasData.ToList();
                 return Page();
             }
 
-            _context.ProdutosData.Add(ProdutosData);
-            await _context.SaveChangesAsync();
+            // Carregue a marca associada
+            Produto.Marca = _context.MarcasData.Find(Produto.MarcaId);
+
+            // Salve o produto no banco de dados
+            _context.ProdutosData.Add(Produto);
+            _context.SaveChanges();
 
             return RedirectToPage("./Index");
         }

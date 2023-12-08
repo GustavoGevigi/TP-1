@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -13,29 +12,36 @@ namespace TP_1.Pages.ProdutosCrud
 {
     public class EditModel : PageModel
     {
-        private readonly TP_1.Data.TP_1Context _context;
+        private readonly TP_1Context _context;
 
-        public EditModel(TP_1.Data.TP_1Context context)
+        public EditModel(TP_1Context context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public ProdutosData ProdutosData { get; set; } = default!;
+        public ProdutosData Produto { get; set; } = default!;
+        public List<MarcasData> Marcas { get; set; } = new List<MarcasData>();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.ProdutosData == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var produtosdata =  await _context.ProdutosData.FirstOrDefaultAsync(m => m.Id == id);
-            if (produtosdata == null)
+            Produto = await _context.ProdutosData
+                .Include(p => p.Marca)  // Carregar a marca associada
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (Produto == null)
             {
                 return NotFound();
             }
-            ProdutosData = produtosdata;
+
+            // Carregar lista de marcas
+            Marcas = await _context.MarcasData.ToListAsync();
+
             return Page();
         }
 
@@ -48,7 +54,7 @@ namespace TP_1.Pages.ProdutosCrud
                 return Page();
             }
 
-            _context.Attach(ProdutosData).State = EntityState.Modified;
+            _context.Attach(Produto).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +62,7 @@ namespace TP_1.Pages.ProdutosCrud
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProdutosDataExists(ProdutosData.Id))
+                if (!ProdutoExists(Produto.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +75,9 @@ namespace TP_1.Pages.ProdutosCrud
             return RedirectToPage("./Index");
         }
 
-        private bool ProdutosDataExists(int id)
+        private bool ProdutoExists(int id)
         {
-          return (_context.ProdutosData?.Any(e => e.Id == id)).GetValueOrDefault();
+            return _context.ProdutosData.Any(e => e.Id == id);
         }
     }
 }

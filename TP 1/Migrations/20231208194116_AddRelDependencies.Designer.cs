@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP_1.Data;
 
@@ -11,9 +12,10 @@ using TP_1.Data;
 namespace TP_1.Migrations
 {
     [DbContext(typeof(TP_1Context))]
-    partial class TP_1ContextModelSnapshot : ModelSnapshot
+    [Migration("20231208194116_AddRelDependencies")]
+    partial class AddRelDependencies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
