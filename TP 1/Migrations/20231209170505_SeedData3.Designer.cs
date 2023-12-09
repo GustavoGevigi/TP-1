@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP_1.Data;
 
@@ -11,9 +12,10 @@ using TP_1.Data;
 namespace TP_1.Migrations
 {
     [DbContext(typeof(TP_1Context))]
-    partial class TP_1ContextModelSnapshot : ModelSnapshot
+    [Migration("20231209170505_SeedData3")]
+    partial class SeedData3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,7 @@ namespace TP_1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarcasDataId"), 1L, 1);
 
-                    b.Property<string>("MarcasDataNome")
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -42,17 +44,17 @@ namespace TP_1.Migrations
                         new
                         {
                             MarcasDataId = 1,
-                            MarcasDataNome = "Nike"
+                            Nome = "Nike"
                         },
                         new
                         {
                             MarcasDataId = 2,
-                            MarcasDataNome = "Adidas"
+                            Nome = "Adidas"
                         },
                         new
                         {
                             MarcasDataId = 3,
-                            MarcasDataNome = "Puma"
+                            Nome = "Puma"
                         });
                 });
 

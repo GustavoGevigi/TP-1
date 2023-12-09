@@ -29,11 +29,23 @@ namespace TP_1.Data
             var marca1 = new MarcasData
             {
                 MarcasDataId = 1,
-                Nome = "Nike"
+                MarcasDataNome = "Nike"
+            };
+
+            var marca2 = new MarcasData
+            {
+                MarcasDataId = 2,
+                MarcasDataNome = "Adidas"
+            };
+
+            var marca3 = new MarcasData
+            {
+                MarcasDataId = 3,
+                MarcasDataNome = "Puma"
             };
 
             modelBuilder.Entity<ProdutosData>().HasData(produto1);
-            modelBuilder.Entity<MarcasData>().HasData(marca1);
+            modelBuilder.Entity<MarcasData>().HasData(marca1, marca2, marca3);
 
             base.OnModelCreating(modelBuilder);
         }
