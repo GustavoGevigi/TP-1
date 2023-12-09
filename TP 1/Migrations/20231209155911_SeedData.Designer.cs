@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP_1.Data;
 
@@ -11,9 +12,10 @@ using TP_1.Data;
 namespace TP_1.Migrations
 {
     [DbContext(typeof(TP_1Context))]
-    partial class TP_1ContextModelSnapshot : ModelSnapshot
+    [Migration("20231209155911_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,7 +89,7 @@ namespace TP_1.Migrations
                             DataLancamento = new DateTime(1985, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "Um clássico do basquete",
                             Disponivel = false,
-                            ImagemPath = "airjordan1.jpg",
+                            ImagemPath = "/wwwroot/airjordan1.jpg",
                             Nome = "Air Jordan 1",
                             Preco = 1999.99
                         });

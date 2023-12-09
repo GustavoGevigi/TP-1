@@ -31,8 +31,5 @@ namespace TP_1.Models
         [Display(Name = "Imagem")]
         [DataType(DataType.ImageUrl, ErrorMessage = "Insira uma URL de imagem válida.")]
         public string ImagemPath { get; set; }
-
-        public int MarcaId { get; set; }
-        public MarcasData Marca { get; set; }
     }
 }

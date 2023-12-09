@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using TP_1.Data;
 using TP_1.Models;
 
-namespace TP_1.Pages.ProdutosCrud
+namespace TP_1.Pages.MarcasCrud
 {
     public class CreateModel : PageModel
     {
@@ -25,18 +25,18 @@ namespace TP_1.Pages.ProdutosCrud
         }
 
         [BindProperty]
-        public ProdutosData ProdutosData { get; set; } = default!;
-
+        public MarcasData MarcasData { get; set; } = default!;
+        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || _context.ProdutosData == null || ProdutosData == null)
+          if (!ModelState.IsValid || _context.MarcasData == null || MarcasData == null)
             {
                 return Page();
             }
 
-            _context.ProdutosData.Add(ProdutosData);
+            _context.MarcasData.Add(MarcasData);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

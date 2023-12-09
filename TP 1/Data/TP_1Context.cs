@@ -14,5 +14,28 @@ namespace TP_1.Data
         {
         }
         public DbSet<TP_1.Models.ProdutosData>? ProdutosData { get; set; }
+        public DbSet<TP_1.Models.MarcasData>? MarcasData { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var produto1 = new ProdutosData { 
+                Id = 1, 
+                Nome = "Air Jordan 1", 
+                Descricao = "Um clássico do basquete", 
+                Preco = 1999.99, DataLancamento = new DateTime (1985, 04, 01), 
+                ImagemPath = "airjordan1.jpg" 
+            };
+
+            var marca1 = new MarcasData
+            {
+                MarcasDataId = 1,
+                Nome = "Nike"
+            };
+
+            modelBuilder.Entity<ProdutosData>().HasData(produto1);
+            modelBuilder.Entity<MarcasData>().HasData(marca1);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

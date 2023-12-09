@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using TP_1.Data;
 using TP_1.Models;
 
-namespace TP_1.Pages.ProdutosCrud
+namespace TP_1.Pages.MarcasCrud
 {
     public class EditModel : PageModel
     {
@@ -21,21 +21,21 @@ namespace TP_1.Pages.ProdutosCrud
         }
 
         [BindProperty]
-        public ProdutosData ProdutosData { get; set; } = default!;
+        public MarcasData MarcasData { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.ProdutosData == null)
+            if (id == null || _context.MarcasData == null)
             {
                 return NotFound();
             }
 
-            var produtosdata = await _context.ProdutosData.FirstOrDefaultAsync(m => m.Id == id);
-            if (produtosdata == null)
+            var marcasdata =  await _context.MarcasData.FirstOrDefaultAsync(m => m.MarcasDataId == id);
+            if (marcasdata == null)
             {
                 return NotFound();
             }
-            ProdutosData = produtosdata;
+            MarcasData = marcasdata;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace TP_1.Pages.ProdutosCrud
                 return Page();
             }
 
-            _context.Attach(ProdutosData).State = EntityState.Modified;
+            _context.Attach(MarcasData).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace TP_1.Pages.ProdutosCrud
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProdutosDataExists(ProdutosData.Id))
+                if (!MarcasDataExists(MarcasData.MarcasDataId))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace TP_1.Pages.ProdutosCrud
             return RedirectToPage("./Index");
         }
 
-        private bool ProdutosDataExists(int id)
+        private bool MarcasDataExists(int id)
         {
-            return (_context.ProdutosData?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.MarcasData?.Any(e => e.MarcasDataId == id)).GetValueOrDefault();
         }
     }
 }

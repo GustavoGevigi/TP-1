@@ -12,8 +12,8 @@ using TP_1.Data;
 namespace TP_1.Migrations
 {
     [DbContext(typeof(TP_1Context))]
-    [Migration("20231208194116_AddRelDependencies")]
-    partial class AddRelDependencies
+    [Migration("20231209144109_AdicionaMarcas")]
+    partial class AdicionaMarcas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,9 +63,6 @@ namespace TP_1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MarcaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -76,20 +73,7 @@ namespace TP_1.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MarcaId");
-
                     b.ToTable("ProdutosData");
-                });
-
-            modelBuilder.Entity("TP_1.Models.ProdutosData", b =>
-                {
-                    b.HasOne("TP_1.Models.MarcasData", "Marca")
-                        .WithMany()
-                        .HasForeignKey("MarcaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Marca");
                 });
 #pragma warning restore 612, 618
         }

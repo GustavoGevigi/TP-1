@@ -12,8 +12,8 @@ using TP_1.Data;
 namespace TP_1.Migrations
 {
     [DbContext(typeof(TP_1Context))]
-    [Migration("20231208175956_AddProdutos")]
-    partial class AddProdutos
+    [Migration("20231209160808_SeedData2")]
+    partial class SeedData2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,30 @@ namespace TP_1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("TP_1.Models.MarcasData", b =>
+                {
+                    b.Property<int>("MarcasDataId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarcasDataId"), 1L, 1);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MarcasDataId");
+
+                    b.ToTable("MarcasData");
+
+                    b.HasData(
+                        new
+                        {
+                            MarcasDataId = 1,
+                            Nome = "Nike"
+                        });
+                });
 
             modelBuilder.Entity("TP_1.Models.ProdutosData", b =>
                 {
@@ -57,6 +81,18 @@ namespace TP_1.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProdutosData");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DataLancamento = new DateTime(1985, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Descricao = "Um clássico do basquete",
+                            Disponivel = false,
+                            ImagemPath = "airjordan1.jpg",
+                            Nome = "Air Jordan 1",
+                            Preco = 1999.99
+                        });
                 });
 #pragma warning restore 612, 618
         }

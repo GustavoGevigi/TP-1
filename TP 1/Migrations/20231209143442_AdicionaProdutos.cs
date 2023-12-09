@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TP_1.Migrations
 {
-    public partial class AddProdutos : Migration
+    public partial class AdicionaProdutos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
