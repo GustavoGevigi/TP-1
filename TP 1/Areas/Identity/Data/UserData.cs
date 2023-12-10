@@ -9,5 +9,7 @@ namespace TP_1.Areas.Identity.Data;
 // Add profile data for application users by adding properties to the UserData class
 public class UserData : IdentityUser
 {
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
 }
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP_1.Areas.Identity.Data;
 
@@ -11,9 +12,10 @@ using TP_1.Areas.Identity.Data;
 namespace TP_1.Migrations.DBContextUserMigrations
 {
     [DbContext(typeof(DBContextUser))]
-    partial class DBContextUserModelSnapshot : ModelSnapshot
+    [Migration("20231210203539_AddUserNameData")]
+    partial class AddUserNameData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
