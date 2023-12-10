@@ -2,6 +2,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using TP_1.Data;
+using Microsoft.AspNetCore.Identity;
+using TP_1.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +24,14 @@ builder.Services.AddSession(options =>
 // Adicione Razor Pages
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<TP_1Context>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TP_1Context") ?? throw new InvalidOperationException("Connection string 'TP_1Context' not found.")));
+  options.UseSqlServer(builder.Configuration.GetConnectionString("TP_1Context") ?? throw new InvalidOperationException("Connection string 'TP_1Context' not found.")));
+
+// Adicione o contexto de banco de dados `DBContextUser` com o tempo de vida `Scoped` antes de configurar o Identity
+builder.Services.AddDbContext<DBContextUser>(options =>
+  options.UseSqlServer(builder.Configuration.GetConnectionString("DBContextUser") ?? throw new InvalidOperationException("Connection string 'DBContextUser' not found.")));
+
+builder.Services.AddDefaultIdentity<UserData>(options => options.SignIn.RequireConfirmedAccount = true)
+  .AddEntityFrameworkStores<DBContextUser>();
 
 var app = builder.Build();
 
@@ -44,24 +53,22 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseSession();
-
 app.UseRouting();
-
+app.UseAuthentication(); ;
 app.UseAuthorization();
-
 app.MapRazorPages();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+      name: "default",
+      pattern: "{controller=Home}/{action=Index}/{id?}");
     endpoints.MapRazorPages();
 
     endpoints.MapControllerRoute(
-        name: "slugRoute",
-        pattern: "Produto/{slug}",
-        defaults: new { controller = "Produto", action = "Details" });
+      name: "slugRoute",
+      pattern: "Produto/{slug}",
+      defaults: new { controller = "Produto", action = "Details" });
 });
 
 app.Run();
