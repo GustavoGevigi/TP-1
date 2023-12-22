@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using TP_1.Data;
 using Microsoft.AspNetCore.Identity;
 using TP_1.Areas.Identity.Data;
+using TP_1.Areas.Identity.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddHttpClient<ViaCepService>();
+
 
 builder.Services.AddMvc()
     .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)

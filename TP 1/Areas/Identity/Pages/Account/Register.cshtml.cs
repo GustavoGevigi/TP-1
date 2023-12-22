@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using TP_1.Areas.Identity.Data;
+using TP_1.Areas.Identity.Services;
 
 namespace TP_1.Areas.Identity.Pages.Account
 {
@@ -30,13 +31,15 @@ namespace TP_1.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<UserData> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ViaCepService _viaCepService;
 
         public RegisterModel(
             UserManager<UserData> userManager,
             IUserStore<UserData> userStore,
             SignInManager<UserData> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ViaCepService viaCepService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +47,7 @@ namespace TP_1.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _viaCepService = viaCepService;
         }
 
         /// <summary>
@@ -82,6 +86,11 @@ namespace TP_1.Areas.Identity.Pages.Account
             [Display(Name = "LastName")]
 
             public string LastName { get; set; }
+            
+            [Required]
+            [StringLength(10, ErrorMessage = "Máximo de 10 caracteres permitido")]
+            [Display(Name = "Cep")]
+            public string Cep { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -128,6 +137,7 @@ namespace TP_1.Areas.Identity.Pages.Account
 
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
+                user.Cep = Input.Cep;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
