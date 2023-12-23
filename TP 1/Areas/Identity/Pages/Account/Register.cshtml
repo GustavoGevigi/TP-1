@@ -60,8 +60,9 @@
                                     $('#Input_Cidade').val(data.localidade);
                                     $('#Input_Uf').val(data.uf);
                                 } else {
-                                    // CEP não encontrado, exibe mensagem de erro
-                                    alert('CEP não encontrado. Por favor, verifique o CEP informado.');
+                                    // CEP não encontrado, adiciona mensagem de erro ao ModelState
+                                    var errorMessage = 'CEP não encontrado. Por favor, verifique o CEP informado.';
+                                    $('span[data-valmsg-for="Input.Cep"]').text(errorMessage);
                                 }
                             });
                         }
