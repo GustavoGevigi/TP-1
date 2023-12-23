@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TP_1.Pages
 {
+    [Authorize]
     public class ProdutosView : PageModel
     {
         private readonly TP_1.Data.TP_1Context _context;
