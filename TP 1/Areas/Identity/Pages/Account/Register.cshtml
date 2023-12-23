@@ -37,6 +37,39 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <div class="form-floating">
+                <input asp-for="Input.Cep" class="form-control" aria-required="true" />
+                <label asp-for="Input.Cep">CEP</label>
+                <span asp-validation-for="Input.Cep" class="text-danger"></span>
+            </div>
+
+            <!-- Script JavaScript -->
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('#Input_Cep').on('blur', function () {
+                        var cep = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
+
+                        if (cep.length === 8) {
+                            // Chama a API ViaCEP
+                            $.getJSON(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
+                                if (!data.erro) {
+                                    // Atualiza os campos do formulário
+                                    $('#Input_Logradouro').val(data.logradouro);
+                                    $('#Input_Bairro').val(data.bairro);
+                                    $('#Input_Cidade').val(data.localidade);
+                                    $('#Input_Uf').val(data.uf);
+                                } else {
+                                    // CEP não encontrado, adiciona mensagem de erro ao ModelState
+                                    var errorMessage = 'CEP não encontrado. Por favor, verifique o CEP informado.';
+                                    $('span[data-valmsg-for="Input.Cep"]').text(errorMessage);
+                                }
+                            });
+                        }
+                    });
+                });
+            </script>
+
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registrar</button>
         </form>
     </div>
